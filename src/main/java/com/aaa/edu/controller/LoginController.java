@@ -10,7 +10,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
+@CrossOrigin
 @RestController
 public class LoginController {
 
@@ -29,8 +31,11 @@ public class LoginController {
     @GetMapping("/role")
     public RespBean getRole(@RequestHeader(value = "token")String token){
         String[] infos = token.split(",");
-        String role = userService.getRole(infos[1]);
-        if(StringUtils.hasText(role))return RespBean.success(null,role);
+        List<String> roles = userService.getRole(infos[1]);
+//        if(StringUtils.hasText(role))return RespBean.success(null,role);
+        if(roles.size()>0){
+            return RespBean.success(null,roles);
+        }
         return RespBean.error(null);
     }
 
@@ -38,7 +43,7 @@ public class LoginController {
     @GetMapping("/info")
     public RespBean getInfo(String token){
         return RespBean.success(null,new Info(new String[]{"admin"},
-                "aaa","admin","https://avatar.csdnimg.cn/4/A/1/1_xcdq_aaa_1632648540.jpg"));
+                "aaa","admin","http://localhost:8888/files/avatar"));
     }
 
 

@@ -6,6 +6,10 @@ import com.aaa.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -25,11 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getRole(String rId) {
+    public List<String> getRole(String rId) {
         String rFlag = "";
         if("1".equals(rId)) rFlag = "admin";
         else if("2".equals(rId)) rFlag = "teacher";
         else if("3".equals(rId)) rFlag = "student";
-        return rFlag;
+        return Arrays.asList(rFlag);
     }
 }

@@ -18,7 +18,7 @@ public class User {
     private Integer uId;
     private String account;
     private String password;
-    private String head;
+    private String avatar;
     private String email;
     private Integer role;
     private Integer state;
