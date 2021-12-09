@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.edu.mapper.UserMapper">
+    <update id="setUserState">
+        update t_user set state = #{state} where u_id= #{u_id};
+    </update>
+
+    <select id="getUserByMessage" resultType="com.aaa.edu.pojo.entity.User">
+        select * from t_user where account = #{account} and password = #{password} and state = 1
+    </select>
+</mapper>
