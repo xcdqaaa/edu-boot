@@ -24,7 +24,7 @@ public class LoginController {
     public RespBean login(@RequestBody User user){
         Integer uId = userService.login(user.getAccount(), user.getPassword());
         if(uId!=null)return RespBean.success("欢迎登陆",userService.getToken(uId));
-        return RespBean.error("登录失败");
+        return RespBean.error("登陆失败，账号或密码错误");
     }
 
     @ApiOperation("角色")
