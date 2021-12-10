@@ -1,8 +1,12 @@
 package com.aaa.edu.service.impl;
 
 import com.aaa.edu.mapper.UserMapper;
+import com.aaa.edu.pojo.QueryInfo;
 import com.aaa.edu.pojo.entity.User;
 import com.aaa.edu.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +39,15 @@ public class UserServiceImpl implements UserService {
         else if("2".equals(rId)) rFlag = "teacher";
         else if("3".equals(rId)) rFlag = "student";
         return Arrays.asList(rFlag);
+    }
+
+    @Override
+    public IPage<User> getUsers(QueryInfo info,Integer role) {
+        IPage<User> userIPage = new Page<>();
+        userIPage.setCurrent(info.getPageNumber());
+        userIPage.setSize(info.getPageSize());
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.like("account",info.getQuery()).eq("state",1).eq("role",role);
+        return userMapper.selectPage(userIPage, wrapper);
     }
 }

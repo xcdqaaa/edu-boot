@@ -1,24 +1,39 @@
 package com.aaa.edu.controller;
 
+import com.aaa.edu.pojo.QueryInfo;
+import com.aaa.edu.pojo.RespBean;
+import com.aaa.edu.pojo.entity.User;
+import com.aaa.edu.service.UserService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 public class UserController {
 
-//    @Autowired
-//    UserService userService;
-//
-//    @RequestMapping("/users")
-//    public RespBean getAllUsers(@RequestBody QueryInfo info) {
-//        log.info(String.valueOf(info));
-//        return userService.getAllUsers(info);
-//    }
+    @Autowired
+    UserService userService;
+
+    @PostMapping("/user/admins")
+    public RespBean getAdmins(@RequestBody QueryInfo info) {
+        log.info(String.valueOf(info));
+        IPage<User> users = userService.getUsers(info, 1);
+        return RespBean.success(null,users);
+    }
+    @PostMapping("/user/teachers")
+    public RespBean getTeachers(@RequestBody QueryInfo info) {
+        log.info(String.valueOf(info));
+        IPage<User> users = userService.getUsers(info, 2);
+        return RespBean.success(null,users);
+    }
+    @PostMapping("/user/students")
+    public RespBean getStudents(@RequestBody QueryInfo info) {
+        log.info(String.valueOf(info));
+        IPage<User> users = userService.getUsers(info, 3);
+        return RespBean.success(null,users);
+    }
 //
 //    @RequestMapping("/adduser")
 //    public RespBean addUser(@RequestBody User user){
