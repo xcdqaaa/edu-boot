@@ -24,6 +24,13 @@ public class LessonServiceImpl implements LessonService {
         IPage<VLesson> iPage = new Page<>();
         iPage.setCurrent(info.getPageNumber());
         iPage.setSize(info.getPageSize());
-        return lessonMapper.getLessons(iPage, info.getQuery());
+        IPage<VLesson> page = lessonMapper.getLessons(iPage, info.getQuery());
+
+        page.getRecords().forEach(vLesson -> {
+            vLesson.setLClasses(lessonMapper.getLearn(vLesson.getLId()));
+            vLesson.setLTeachers(lessonMapper.getTeach(vLesson.getLId()));
+        });
+
+        return page;
     }
 }

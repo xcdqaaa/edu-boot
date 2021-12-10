@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2021-12-10 08:15:12
+Date: 2021-12-10 21:32:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `t_class` (
   PRIMARY KEY (`c_id`),
   KEY `m_id` (`m_id`),
   KEY `c_term` (`c_term`),
-  CONSTRAINT `t_class_ibfk_2` FOREIGN KEY (`c_term`) REFERENCES `t_term` (`d_id`),
+  CONSTRAINT `t_class_ibfk_2` FOREIGN KEY (`c_term`) REFERENCES `t_period` (`p_id`),
   CONSTRAINT `t_class_ibfk_1` FOREIGN KEY (`m_id`) REFERENCES `t_major` (`m_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,8 +39,8 @@ INSERT INTO `t_class` VALUES ('5001', '软件191', '1', '20199', '2001');
 INSERT INTO `t_class` VALUES ('5002', '软件192', '1', '20199', '2001');
 INSERT INTO `t_class` VALUES ('5003', '计科191', '1', '20199', '2002');
 INSERT INTO `t_class` VALUES ('5004', '计科192', '1', '20199', '2002');
-INSERT INTO `t_class` VALUES ('5201', '重修001', '2', '20213', null);
-INSERT INTO `t_class` VALUES ('5301', '选修', '3', '20213', null);
+INSERT INTO `t_class` VALUES ('5201', '重修001', '2', '20213', '2000');
+INSERT INTO `t_class` VALUES ('5301', '选修001', '3', '20213', '2000');
 
 -- ----------------------------
 -- Table structure for t_college
@@ -70,14 +70,14 @@ DROP TABLE IF EXISTS `t_lesson`;
 CREATE TABLE `t_lesson` (
   `l_id` varchar(255) NOT NULL,
   `b_id` varchar(255) NOT NULL,
-  `l_name` varchar(255) DEFAULT NULL,
+  `l_name` varchar(255) NOT NULL,
   `l_term` varchar(255) DEFAULT NULL,
   `l_place` varchar(255) DEFAULT NULL,
   `l_time` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`l_id`),
+  PRIMARY KEY (`l_id`,`l_name`),
   KEY `b_id` (`b_id`),
   KEY `l_term` (`l_term`),
-  CONSTRAINT `t_lesson_ibfk_2` FOREIGN KEY (`l_term`) REFERENCES `t_term` (`d_id`),
+  CONSTRAINT `t_lesson_ibfk_2` FOREIGN KEY (`l_term`) REFERENCES `t_period` (`p_id`),
   CONSTRAINT `t_lesson_ibfk_1` FOREIGN KEY (`b_id`) REFERENCES `t_subject` (`b_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,6 +117,7 @@ INSERT INTO `t_lesson_class` VALUES ('4002', '5003');
 INSERT INTO `t_lesson_class` VALUES ('4005', '5003');
 INSERT INTO `t_lesson_class` VALUES ('4002', '5004');
 INSERT INTO `t_lesson_class` VALUES ('4005', '5004');
+INSERT INTO `t_lesson_class` VALUES ('4001', '5201');
 
 -- ----------------------------
 -- Table structure for t_major
@@ -134,6 +135,7 @@ CREATE TABLE `t_major` (
 -- ----------------------------
 -- Records of t_major
 -- ----------------------------
+INSERT INTO `t_major` VALUES ('2000', '重修选修', null);
 INSERT INTO `t_major` VALUES ('2001', '软件工程', '1001');
 INSERT INTO `t_major` VALUES ('2002', '计算机科学与技术', '1001');
 INSERT INTO `t_major` VALUES ('2003', '物联网工程', '1001');
@@ -144,6 +146,25 @@ INSERT INTO `t_major` VALUES ('2007', '物理', '1002');
 INSERT INTO `t_major` VALUES ('2008', '法学', '1003');
 INSERT INTO `t_major` VALUES ('2009', '公共管理', '1003');
 INSERT INTO `t_major` VALUES ('2010', '汉语', '1003');
+
+-- ----------------------------
+-- Table structure for t_period
+-- ----------------------------
+DROP TABLE IF EXISTS `t_period`;
+CREATE TABLE `t_period` (
+  `p_id` varchar(255) DEFAULT NULL COMMENT '学期id',
+  `p_name` varchar(255) DEFAULT NULL COMMENT '学期名',
+  KEY `d_id` (`p_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_period
+-- ----------------------------
+INSERT INTO `t_period` VALUES ('20199', '2019-2020 秋');
+INSERT INTO `t_period` VALUES ('20203', '2019-2020 春');
+INSERT INTO `t_period` VALUES ('20209', '2020-2021 秋');
+INSERT INTO `t_period` VALUES ('20213', '2020-2021 春');
+INSERT INTO `t_period` VALUES ('20219', '2021-2022 秋');
 
 -- ----------------------------
 -- Table structure for t_role
@@ -219,7 +240,7 @@ CREATE TABLE `t_subject` (
   KEY `b_` (`b_id`),
   KEY `g_id` (`g_id`),
   KEY `b_period` (`b_period`),
-  CONSTRAINT `t_subject_ibfk_2` FOREIGN KEY (`b_period`) REFERENCES `t_term` (`d_id`),
+  CONSTRAINT `t_subject_ibfk_2` FOREIGN KEY (`b_period`) REFERENCES `t_period` (`p_id`),
   CONSTRAINT `t_subject_ibfk_1` FOREIGN KEY (`g_id`) REFERENCES `t_college` (`g_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -252,10 +273,12 @@ CREATE TABLE `t_teach` (
 -- Records of t_teach
 -- ----------------------------
 INSERT INTO `t_teach` VALUES ('2', '4001');
+INSERT INTO `t_teach` VALUES ('6', '4001');
 INSERT INTO `t_teach` VALUES ('2', '4002');
 INSERT INTO `t_teach` VALUES ('3', '4003');
 INSERT INTO `t_teach` VALUES ('4', '4004');
 INSERT INTO `t_teach` VALUES ('4', '4005');
+INSERT INTO `t_teach` VALUES ('2', '4006');
 INSERT INTO `t_teach` VALUES ('4', '4006');
 INSERT INTO `t_teach` VALUES ('5', '4007');
 
@@ -269,6 +292,7 @@ CREATE TABLE `t_teacher` (
   `t_college` varchar(255) DEFAULT NULL,
   KEY `t_college` (`t_college`),
   KEY `u_id` (`u_id`),
+  CONSTRAINT `t_teacher_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `t_user` (`u_id`),
   CONSTRAINT `t_teacher_ibfk_1` FOREIGN KEY (`t_college`) REFERENCES `t_college` (`g_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -284,25 +308,6 @@ INSERT INTO `t_teacher` VALUES ('7', '贾惜春', '1001');
 INSERT INTO `t_teacher` VALUES ('8', '李纨', '1002');
 INSERT INTO `t_teacher` VALUES ('9', '妙玉', '1002');
 INSERT INTO `t_teacher` VALUES ('10', '史湘云', '1002');
-
--- ----------------------------
--- Table structure for t_term
--- ----------------------------
-DROP TABLE IF EXISTS `t_term`;
-CREATE TABLE `t_term` (
-  `d_id` varchar(255) DEFAULT NULL COMMENT '学期id',
-  `d_name` varchar(255) DEFAULT NULL COMMENT '学期名',
-  KEY `d_id` (`d_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_term
--- ----------------------------
-INSERT INTO `t_term` VALUES ('20199', '2019-2020秋');
-INSERT INTO `t_term` VALUES ('20203', '2019-2020春');
-INSERT INTO `t_term` VALUES ('20209', '2020-2021秋');
-INSERT INTO `t_term` VALUES ('20213', '2020-2021春');
-INSERT INTO `t_term` VALUES ('20219', '2021-2022秋');
 
 -- ----------------------------
 -- Table structure for t_user
@@ -346,3 +351,108 @@ INSERT INTO `t_user` VALUES ('21', 'bbb', '123456', null, null, '1', '1');
 INSERT INTO `t_user` VALUES ('22', 'ccc', '123456', null, null, '1', '1');
 INSERT INTO `t_user` VALUES ('23', 'ddd', '123456', null, null, '1', '1');
 INSERT INTO `t_user` VALUES ('24', 'eee', '123456', null, null, '1', '1');
+
+-- ----------------------------
+-- View structure for v_class
+-- ----------------------------
+DROP VIEW IF EXISTS `v_class`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_class` AS SELECT
+t_class.c_id,
+t_class.c_name,
+t_class.c_type,
+t_class.c_term,
+t_major.m_name,
+t_college.g_name
+FROM
+t_class
+INNER JOIN t_major ON t_class.m_id = t_major.m_id
+INNER JOIN t_college ON t_major.g_id = t_college.g_id ;
+
+-- ----------------------------
+-- View structure for v_learn
+-- ----------------------------
+DROP VIEW IF EXISTS `v_learn`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_learn` AS SELECT
+t_lesson_class.l_id,
+t_class.c_name,
+t_class.c_type,
+t_class.c_id
+FROM
+t_class
+INNER JOIN t_lesson_class ON t_lesson_class.c_id = t_class.c_id ;
+
+-- ----------------------------
+-- View structure for v_lesson
+-- ----------------------------
+DROP VIEW IF EXISTS `v_lesson`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_lesson` AS SELECT
+t_lesson.l_id,
+t_subject.b_name AS l_subject,
+t_subject.b_crs AS l_crs,
+t_period.p_name AS l_term,
+t_lesson.l_name,
+t_lesson.l_place,
+t_lesson.l_time
+FROM
+t_lesson
+INNER JOIN t_period ON t_lesson.l_term = t_period.p_id
+INNER JOIN t_subject ON t_lesson.b_id = t_subject.b_id ;
+
+-- ----------------------------
+-- View structure for v_student
+-- ----------------------------
+DROP VIEW IF EXISTS `v_student`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_student` AS SELECT
+t_student.u_id,
+t_student.s_name,
+t_user.account s_id,
+t_class.c_name s_class,
+t_major.m_name s_major,
+t_college.g_name s_college
+FROM
+t_student
+INNER JOIN t_user ON t_student.u_id = t_user.u_id
+INNER JOIN t_class ON t_student.s_class = t_class.c_id
+INNER JOIN t_major ON t_class.m_id = t_major.m_id
+INNER JOIN t_college ON t_major.g_id = t_college.g_id ;
+
+-- ----------------------------
+-- View structure for v_subject
+-- ----------------------------
+DROP VIEW IF EXISTS `v_subject`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_subject` AS SELECT
+t_subject.b_id,
+t_subject.b_name,
+t_subject.b_crs,
+t_college.g_name b_college,
+t_period.p_name b_period
+FROM
+t_subject
+INNER JOIN t_period ON t_subject.b_period = t_period.p_id
+INNER JOIN t_college ON t_subject.g_id = t_college.g_id ;
+
+-- ----------------------------
+-- View structure for v_teach
+-- ----------------------------
+DROP VIEW IF EXISTS `v_teach`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost`  VIEW `v_teach` AS SELECT t_teach.l_id,
+t_teacher.t_name,
+t_teacher.u_id
+
+FROM
+t_teacher
+INNER JOIN t_teach ON t_teach.t_id = t_teacher.u_id ;
+
+-- ----------------------------
+-- View structure for v_teacher
+-- ----------------------------
+DROP VIEW IF EXISTS `v_teacher`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_teacher` AS SELECT
+t_teacher.u_id,
+t_teacher.t_name,
+t_user.account AS t_id,
+t_college.g_name t_college
+FROM
+t_teacher
+INNER JOIN t_user ON t_teacher.u_id = t_user.u_id
+INNER JOIN t_college ON t_teacher.t_college = t_college.g_id ;

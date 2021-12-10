@@ -1,6 +1,5 @@
 package com.aaa.edu.pojo.view;
 
-import com.aaa.edu.pojo.beans.BClass;
 import com.aaa.edu.pojo.entity.Class;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,13 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VLesson {
+@TableName("v_lesson")
+public class Lesson {
     @TableId
     private String lId;
     private String lName;
@@ -24,10 +23,4 @@ public class VLesson {
     private String lSubject;
     private String lPlace;
     private String lTime;
-
-    @TableField(exist = false)
-    private List<BClass> lClasses;
-
-    @TableField(exist = false)
-    private List<VTeacher> lTeachers;
 }

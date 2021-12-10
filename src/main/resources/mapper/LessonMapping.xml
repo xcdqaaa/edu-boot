@@ -13,11 +13,19 @@
         <result property="lPlace" column="l_place"/>
         <result property="lTime" column="l_time"/>
 
-        <collection property="lClasses" javaType="ArrayList" ofType="String">
-            <result column="l_class" javaType="String"/>
-        </collection>
+<!--        <collection property="lClasses" javaType="ArrayList" ofType="com.aaa.edu.pojo.beans.BClass">-->
+<!--            <result column="c_name" property="cName"/>-->
+<!--            <result column="c_id" property="cId"/>-->
+<!--            <result column="c_type" property="cType"/>-->
+<!--        </collection>-->
     </resultMap>
     <select id="getLessons" resultMap="LessonMap">
-        select * from v_lesson
+        SELECT * from v_lesson
+    </select>
+    <select id="getLearn" resultType="com.aaa.edu.pojo.beans.BClass">
+        select * from v_learn where l_id = #{l_id}
+    </select>
+    <select id="getTeach" resultType="com.aaa.edu.pojo.view.VTeacher">
+        select * from v_teach where l_id = #{l_id}
     </select>
 </mapper>
