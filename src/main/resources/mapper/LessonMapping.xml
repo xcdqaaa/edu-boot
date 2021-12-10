@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.edu.mapper.LessonMapper">
+
+    <resultMap id="LessonMap" type="com.aaa.edu.pojo.view.VLesson">
+        <result property="lId" column="l_id"/>
+        <result property="lSubject" column="l_subject"/>
+        <result property="lCrs" column="l_crs"/>
+        <result property="lTerm" column="l_term"/>
+        <result property="lName" column="l_name"/>
+        <result property="lPlace" column="l_place"/>
+        <result property="lTime" column="l_time"/>
+
+        <collection property="lClasses" javaType="ArrayList" ofType="String">
+            <result column="l_class" javaType="String"/>
+        </collection>
+    </resultMap>
+    <select id="getLessons" resultMap="LessonMap">
+        select * from v_lesson
+    </select>
+</mapper>
