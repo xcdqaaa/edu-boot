@@ -28,17 +28,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getToken(Integer uId){
         User user = userMapper.selectById(uId);
-        String token = user.getAccount()+","+user.getRole();
+        String token = user.getUId()+","+getRole(user.getRole()+"")+","+user.getAvatar();
         return token;
     }
 
     @Override
-    public List<String> getRole(String rId) {
+    public String getRole(String rId) {
         String rFlag = "";
         if("1".equals(rId)) rFlag = "admin";
         else if("2".equals(rId)) rFlag = "teacher";
         else if("3".equals(rId)) rFlag = "student";
-        return Arrays.asList(rFlag);
+        return rFlag;
     }
 
     @Override

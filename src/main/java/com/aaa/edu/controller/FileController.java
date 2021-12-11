@@ -34,6 +34,38 @@ public class FileController {
 //        file.transferTo(Paths.get(rootFilePath));
         return RespBean.success("上传成功","http://localhost:8888/files/"+originalFilename);
     }
+    @ApiOperation("头像上传")
+    @PostMapping("/avatar")
+    public RespBean uploadAvatar(MultipartFile file) throws IOException {
+        String originalFilename = file.getOriginalFilename();
+        String rootFilePath = System.getProperty("user.dir")+"/src/main/resources/files/avatar/"+originalFilename;
+
+        FileUtil.writeBytes(file.getBytes(),rootFilePath);
+        log.info(rootFilePath);
+//        file.transferTo(Paths.get(rootFilePath));
+        return RespBean.success("上传成功","http://localhost:8888/files/avatar/"+originalFilename);
+    }
+    @ApiOperation("头像下载")
+    @GetMapping("/avatar/{flag}")
+    public void getAvatar(@PathVariable String flag, HttpServletResponse response) {
+        OutputStream os;  // 新建一个输出流对象
+        String basePath = System.getProperty("user.dir") + "/src/main/resources/files/avatar/";  // 定于文件上传的根路径
+        List<String> fileNames = FileUtil.listFileNames(basePath);  // 获取所有的文件名称
+        String fileName = fileNames.stream().filter(name -> name.contains(flag)).findAny().orElse("");  // 找到跟参数一致的文件
+        try {
+            if (StrUtil.isNotEmpty(fileName)) {
+                response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+                response.setContentType("application/octet-stream");
+                byte[] bytes = FileUtil.readBytes(basePath + fileName);  // 通过文件的路径读取文件字节流
+                os = response.getOutputStream();   // 通过输出流返回文件
+                os.write(bytes);
+                os.flush();
+                os.close();
+            }
+        } catch (Exception e) {
+            System.out.println("文件下载失败");
+        }
+    }
     @GetMapping("/{flag}")
     public void getFiles(@PathVariable String flag, HttpServletResponse response) {
         OutputStream os;  // 新建一个输出流对象

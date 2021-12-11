@@ -11,7 +11,7 @@ public interface UserService {
 
     String getToken(Integer uId);
 
-    List<String> getRole(String rId);
+    String getRole(String rId);
 
     IPage<User> getUsers(QueryInfo info,Integer role);
 }

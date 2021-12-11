@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Info {
     private String[] Roles;
-    private String introduction;
     private String name;
     private String avatar;
 }
