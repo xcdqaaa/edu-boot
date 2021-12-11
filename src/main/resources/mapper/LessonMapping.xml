@@ -13,19 +13,64 @@
         <result property="lPlace" column="l_place"/>
         <result property="lTime" column="l_time"/>
 
-<!--        <collection property="lClasses" javaType="ArrayList" ofType="com.aaa.edu.pojo.beans.BClass">-->
-<!--            <result column="c_name" property="cName"/>-->
-<!--            <result column="c_id" property="cId"/>-->
-<!--            <result column="c_type" property="cType"/>-->
-<!--        </collection>-->
+        <!--        <collection property="lClasses" javaType="ArrayList" ofType="com.aaa.edu.pojo.beans.BClass">-->
+        <!--            <result column="c_name" property="cName"/>-->
+        <!--            <result column="c_id" property="cId"/>-->
+        <!--            <result column="c_type" property="cType"/>-->
+        <!--        </collection>-->
     </resultMap>
     <select id="getLessons" resultMap="LessonMap">
-        SELECT * from v_lesson
+        SELECT *
+        from v_lesson
     </select>
     <select id="getLearn" resultType="com.aaa.edu.pojo.beans.BClass">
-        select * from v_learn where l_id = #{l_id}
+        select *
+        from v_learn
+        where l_id = #{l_id}
     </select>
     <select id="getTeach" resultType="com.aaa.edu.pojo.view.VTeacher">
-        select * from v_teach where l_id = #{l_id}
+        select *
+        from v_teach
+        where l_id = #{l_id}
+    </select>
+    <select id="getLessonsByTId" resultType="com.aaa.edu.pojo.view.VLesson">
+        SELECT *
+        FROM v_lesson
+        WHERE v_lesson.l_id IN (
+            SELECT l_id
+            FROM v_teach
+            WHERE u_id = #{u_id}
+        )
+    </select>
+    <select id="getLessonsBySId" resultType="com.aaa.edu.pojo.view.VLesson">
+        SELECT vls.*
+        FROM v_lesson vls,
+             v_learn vln,
+             v_class vc,
+             v_student vs
+        WHERE vls.l_id = vln.l_id
+          AND vln.c_id = vc.c_id
+          AND vs.c_id = vc.c_id
+          AND vs.u_id = #{u_id}
+    </select>
+    <select id="getReLessonsBySId" resultType="com.aaa.edu.pojo.view.VLesson">
+        SELECT vls.*
+        FROM v_lesson vls,
+             v_learn vln,
+             v_re_class vc
+        WHERE vls.l_id = vln.l_id
+          AND vln.c_id = vc.c_id
+          AND vc.c_type = 2
+          AND vc.u_id = #{u_id}
+    </select>
+    <select id="getSeLessonsBySId" resultType="com.aaa.edu.pojo.view.VLesson">
+        SELECT vls.*
+        FROM v_lesson vls,
+             v_learn vln,
+             v_re_class vc
+        WHERE vls.l_id = vln.l_id
+          AND vln.c_id = vc.c_id
+          AND vc.c_type = 3
+          AND vc.u_id = #{u_id}
     </select>
 </mapper>
