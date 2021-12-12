@@ -7,9 +7,11 @@ import com.aaa.edu.pojo.beans.OMajor;
 import com.aaa.edu.pojo.beans.OPeriod;
 import com.aaa.edu.service.OptionListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OptionListServiceImpl implements OptionListService {
     @Autowired
     OptionListMapper optionListMapper;

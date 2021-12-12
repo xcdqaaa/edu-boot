@@ -6,10 +6,7 @@ import com.aaa.edu.pojo.view.VTeacher;
 import com.aaa.edu.service.TeacherService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TeacherController {
@@ -17,8 +14,9 @@ public class TeacherController {
     TeacherService teacherService;
 
     @PostMapping("teacher/teachers")
-    public RespBean getAllTeachers(@RequestBody QueryInfo info) {
-        IPage<VTeacher> page = teacherService.getAllTeachers(info);
+    public RespBean getAllTeachers( @RequestBody QueryInfo info,String college) {
+        System.out.println(info);
+        IPage<VTeacher> page = teacherService.getAllTeachers(info,college);
         if(page!=null){
             return RespBean.success(null, page);
         }

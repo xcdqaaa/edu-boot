@@ -15,12 +15,15 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     TeacherMapper teacherMapper;
     @Override
-    public IPage<VTeacher> getAllTeachers(QueryInfo info) {
+    public IPage<VTeacher> getAllTeachers(QueryInfo info,String college) {
         IPage<VTeacher> iPage = new Page<>();
         iPage.setCurrent(info.getPageNumber());
         iPage.setSize(info.getPageSize());
         QueryWrapper<VTeacher> wrapper = new QueryWrapper<>();
         wrapper.like("t_name",info.getQuery());
+        if(college!=null){
+            wrapper.like("g_id",college);
+        }
 
         return teacherMapper.selectPage(iPage, wrapper);
 
