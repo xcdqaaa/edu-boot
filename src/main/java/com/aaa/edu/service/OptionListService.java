@@ -1,5 +1,6 @@
 package com.aaa.edu.service;
 
+import com.aaa.edu.pojo.Cascader;
 import com.aaa.edu.pojo.beans.OClass;
 import com.aaa.edu.pojo.beans.OCollege;
 import com.aaa.edu.pojo.beans.OMajor;
@@ -20,4 +21,6 @@ public interface OptionListService {
     List<OClass> getClasses();
 
     List<OClass> getClassesByMajorId(String mId);
+
+    List<Cascader> getClassCascader();
 }

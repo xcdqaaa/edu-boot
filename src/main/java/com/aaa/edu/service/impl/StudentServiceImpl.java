@@ -1,12 +1,10 @@
 package com.aaa.edu.service.impl;
 
 import com.aaa.edu.mapper.StudentMapper;
-import com.aaa.edu.mapper.TeacherMapper;
 import com.aaa.edu.pojo.QueryInfo;
+import com.aaa.edu.pojo.entity.StudentInfo;
 import com.aaa.edu.pojo.view.VStudent;
-import com.aaa.edu.pojo.view.VTeacher;
 import com.aaa.edu.service.StudentService;
-import com.aaa.edu.service.TeacherService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,16 +16,25 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     StudentMapper studentMapper;
     @Override
-    public IPage<VStudent> getAllStudents(QueryInfo info) {
+    public IPage<VStudent> getAllStudents(QueryInfo info, String cId) {
+
         IPage<VStudent> iPage = new Page<>();
         iPage.setCurrent(info.getPageNumber());
         iPage.setSize(info.getPageSize());
         QueryWrapper<VStudent> wrapper = new QueryWrapper<>();
         wrapper.like("s_name",info.getQuery());
+        if(cId!=null){
+            wrapper.like("c_id",cId);
+        }
 
         return studentMapper.selectPage(iPage, wrapper);
 
 
+    }
+
+    @Override
+    public StudentInfo getStudentInfo(Integer uId) {
+        return studentMapper.getStudentInfo(uId);
     }
 
    /* @Override

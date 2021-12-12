@@ -17,4 +17,9 @@ public class OptionListController {
     public RespBean getColleges(){
         return RespBean.success(null,optionListService.getColleges());
     }
+
+    @GetMapping("/option/classes")
+    public RespBean getClasses(){
+        return RespBean.success(null,optionListService.getClassCascader());
+    }
 }
