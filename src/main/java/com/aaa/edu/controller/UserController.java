@@ -9,6 +9,7 @@ import com.aaa.edu.service.UserService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -94,7 +95,7 @@ public class UserController {
     }
     @ApiOperation("获取教师")
     @GetMapping("/user/teacher/{id}")
-    public RespBean getTeacher(Integer id) {
+    public RespBean getTeacher(@PathVariable Integer id) {
         log.info(id + "============");
         VTeacher teacher = userService.getTeacher(id);
         if (teacher != null) {

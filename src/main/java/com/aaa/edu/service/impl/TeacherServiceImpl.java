@@ -2,6 +2,7 @@ package com.aaa.edu.service.impl;
 
 import com.aaa.edu.mapper.TeacherMapper;
 import com.aaa.edu.pojo.QueryInfo;
+import com.aaa.edu.pojo.entity.TeacherInfo;
 import com.aaa.edu.pojo.view.VTeacher;
 import com.aaa.edu.service.TeacherService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -28,6 +29,11 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.selectPage(iPage, wrapper);
 
 
+    }
+
+    @Override
+    public TeacherInfo getTeacherInfo(Integer uId) {
+        return teacherMapper.getTeacherInfo(uId);
     }
 
    /* @Override

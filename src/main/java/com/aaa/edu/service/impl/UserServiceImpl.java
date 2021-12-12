@@ -112,14 +112,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer updateTeacher(VTeacher teacher) {
+//        System.out.println("teacher"+teacher.getUId());
         User user = new User();
+        user.setUId(teacher.getUId());
         user.setAccount(teacher.getTId());
         user.setPassword(teacher.getPassword());
         user.setRole(2);
         userMapper.updateById(user);
-        Integer uId = user.getUId();
         VTeacher myTeacher = new VTeacher();
-        myTeacher.setUId(uId);
+        myTeacher.setUId(teacher.getUId());
         myTeacher.setTName(teacher.getTName());
         myTeacher.setGId(teacher.getGId());
         return teacherMapper.updateById(myTeacher);
@@ -128,13 +129,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateStudent(VStudent student) {
         User user = new User();
+        user.setUId(student.getUId());
         user.setAccount(student.getSId());
         user.setPassword(student.getPassword());
         user.setRole(3);
         userMapper.updateById(user);
-        Integer uId = user.getUId();
         VStudent myStudent = new VStudent();
-        myStudent.setUId(uId);
+        myStudent.setUId(student.getUId());
         myStudent.setSName(student.getSName());
         myStudent.setCId(student.getCId());
         return studentMapper.updateById(myStudent);

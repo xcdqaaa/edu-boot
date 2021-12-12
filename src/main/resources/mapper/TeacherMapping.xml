@@ -4,4 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.edu.mapper.TeacherMapper">
 
+    <select id="getTeacherInfo" resultType="com.aaa.edu.pojo.entity.TeacherInfo">
+        select * from t_teacher_info where u_id = #{uid}
+    </select>
 </mapper>
