@@ -1,5 +1,6 @@
 package com.aaa.edu.pojo.view;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -19,4 +20,7 @@ public class VStudent {
     private String sClass;
     private String sMajor;
     private String sCollege;
+    private String cId;
+    @TableField(exist = false)
+    private String password;
 }

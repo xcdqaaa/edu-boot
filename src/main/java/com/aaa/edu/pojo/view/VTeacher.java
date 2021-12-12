@@ -1,5 +1,6 @@
 package com.aaa.edu.pojo.view;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("v_teacher")
-@ApiModel("v_teacher")
+@ApiModel("VTeacher")
 public class VTeacher {
 
     @ApiModelProperty("t_id")
@@ -21,4 +22,7 @@ public class VTeacher {
     private Integer uId;
     private String tName;
     private String tCollege;
+    private String gId;
+    @TableField(exist = false)
+    private String password;
 }
