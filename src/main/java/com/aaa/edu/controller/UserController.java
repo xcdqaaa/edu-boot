@@ -76,11 +76,11 @@ public class UserController {
     @ApiOperation("更新管理员")
     @PutMapping("/user/admin")
     public RespBean updateAdmin(@RequestBody User user) {
-        Integer flag = userService.updateAdmin(user);
+        Integer flag = userService.updateUser(user);
         if (flag > 0) {
-            return RespBean.success("修改管理员成功");
+            return RespBean.success("修改用户成功");
         }
-        return RespBean.error("修改管理员失败");
+        return RespBean.error("修改用户失败");
     }
 
     @ApiOperation("添加教师")

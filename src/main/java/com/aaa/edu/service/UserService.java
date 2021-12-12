@@ -24,7 +24,7 @@ public interface UserService {
 
     Integer addStudent(VStudent student);
 
-    Integer updateAdmin(User user);
+    Integer updateUser(User user);
 
     Integer updateTeacher(VTeacher teacher);
 

@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updateAdmin(User user) {
+    public Integer updateUser(User user) {
         return userMapper.updateById(user);
 
     }
