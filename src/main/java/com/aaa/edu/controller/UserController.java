@@ -151,28 +151,4 @@ public class UserController {
         }
         return RespBean.error("更新失败");
     }
-
-//
-//    @RequestMapping("/updateuser")
-//    public RespBean updateUser(@RequestBody User user){
-//        return userService.updateUser(user);
-//    }
-//
-//    @RequestMapping(value = "/user",method = RequestMethod.DELETE)
-//    public RespBean deleteUser(int id){
-//        return userService.deleteUser(id);
-//    }
-//    @RequestMapping(value = "/user",method = RequestMethod.POST)
-//    public RespBean addVUser(@RequestBody VUser vUser){
-////        user.setState(1);
-//        return userService.addVUser(vUser);
-//    }
-//
-//    @RequestMapping("/users2")
-//    public RespBean getAllUsers2() {
-////        log.info(String.valueOf(info));
-//        QueryInfo info = new QueryInfo("",1,10);
-//        return userService.getAllUsers(info);
-//    }
-
 }
