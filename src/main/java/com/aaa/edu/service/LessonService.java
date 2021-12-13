@@ -10,5 +10,5 @@ public interface LessonService {
 
     IPage<VLesson> getLessonsByCId(QueryInfo info,String term);
 
-    IPage<VLesson> getLessonsByTId(QueryInfo info,String term);
+    IPage<VLesson> getLessonsByTId(QueryInfo info,String teacher,String term);
 }

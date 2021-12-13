@@ -1,10 +1,7 @@
 package com.aaa.edu.service;
 
 import com.aaa.edu.pojo.Cascader;
-import com.aaa.edu.pojo.beans.OClass;
-import com.aaa.edu.pojo.beans.OCollege;
-import com.aaa.edu.pojo.beans.OMajor;
-import com.aaa.edu.pojo.beans.OPeriod;
+import com.aaa.edu.pojo.beans.*;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -23,4 +20,6 @@ public interface OptionListService {
     List<OClass> getClassesByMajorId(String mId);
 
     List<Cascader> getClassCascader();
+
+    List<OTeacher> getTeachersByCollege(String gId);
 }

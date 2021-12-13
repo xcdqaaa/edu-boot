@@ -2,10 +2,7 @@ package com.aaa.edu.service.impl;
 
 import com.aaa.edu.mapper.OptionListMapper;
 import com.aaa.edu.pojo.Cascader;
-import com.aaa.edu.pojo.beans.OClass;
-import com.aaa.edu.pojo.beans.OCollege;
-import com.aaa.edu.pojo.beans.OMajor;
-import com.aaa.edu.pojo.beans.OPeriod;
+import com.aaa.edu.pojo.beans.*;
 import com.aaa.edu.service.OptionListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,6 +80,11 @@ public class OptionListServiceImpl implements OptionListService {
 
 
         return cs1;
+    }
+
+    @Override
+    public List<OTeacher> getTeachersByCollege(String gId) {
+        return optionListMapper.getTeachersByCollege(gId);
     }
 
 }

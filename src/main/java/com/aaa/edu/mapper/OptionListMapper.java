@@ -1,9 +1,6 @@
 package com.aaa.edu.mapper;
 
-import com.aaa.edu.pojo.beans.OClass;
-import com.aaa.edu.pojo.beans.OCollege;
-import com.aaa.edu.pojo.beans.OMajor;
-import com.aaa.edu.pojo.beans.OPeriod;
+import com.aaa.edu.pojo.beans.*;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -27,6 +24,9 @@ public interface OptionListMapper {
 
     @Select("select * from t_class where m_id = #{mId}")
     List<OClass> getClassesByMajorId(String mId);
+
+    @Select("select * from t_teacher where t_college = #{gId}")
+    List<OTeacher> getTeachersByCollege(String gId);
 
 
 }

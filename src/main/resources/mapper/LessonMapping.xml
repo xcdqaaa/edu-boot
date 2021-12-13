@@ -43,8 +43,8 @@
         WHERE v_lesson.l_id IN (
             SELECT l_id
             FROM v_teach
-            WHERE u_id = #{u_id}
-        )
+            WHERE u_id = #{teacher}
+        ) and v_lesson.p_id = #{term}
     </select>
     <select id="getLessonsBySId" resultType="com.aaa.edu.pojo.view.VLesson">
         SELECT vls.*
