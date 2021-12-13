@@ -87,4 +87,9 @@ public class OptionListServiceImpl implements OptionListService {
         return optionListMapper.getTeachersByCollege(gId);
     }
 
+    @Override
+    public List<OStudent> getStudentByCollege(String cId) {
+        return optionListMapper.getStudentsByCollege(cId);
+    }
+
 }

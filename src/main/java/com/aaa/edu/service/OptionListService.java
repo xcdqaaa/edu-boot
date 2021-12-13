@@ -22,4 +22,6 @@ public interface OptionListService {
     List<Cascader> getClassCascader();
 
     List<OTeacher> getTeachersByCollege(String gId);
+
+    List<OStudent> getStudentByCollege(String cId);
 }

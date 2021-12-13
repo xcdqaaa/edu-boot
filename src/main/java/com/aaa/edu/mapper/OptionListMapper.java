@@ -28,5 +28,8 @@ public interface OptionListMapper {
     @Select("select * from t_teacher where t_college = #{gId}")
     List<OTeacher> getTeachersByCollege(String gId);
 
+    @Select("select * from t_student where s_class = #{cId}")
+    List<OStudent> getStudentsByCollege(String cId);
+
 
 }

@@ -32,4 +32,9 @@ public class OptionListController {
     public RespBean getTeachers(@PathVariable String gId){
         return RespBean.success(null,optionListService.getTeachersByCollege(gId));
     }
+
+    @GetMapping("/option/students/{cId}")
+    public RespBean getStudents(@PathVariable String cId){
+        return RespBean.success(null,optionListService.getStudentByCollege(cId));
+    }
 }
