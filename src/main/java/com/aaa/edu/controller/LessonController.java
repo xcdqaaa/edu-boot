@@ -18,8 +18,8 @@ public class LessonController {
     LessonService lessonService;
 
     @PostMapping("course/lessons")
-    public RespBean getLessons(@RequestBody QueryInfo info) {
-        IPage<VLesson> page = lessonService.getLessons(info);
+    public RespBean getLessons(@RequestBody QueryInfo info,String term) {
+        IPage<VLesson> page = lessonService.getLessons(info,term);
         if(page!=null){
             return RespBean.success(null, page);
         }

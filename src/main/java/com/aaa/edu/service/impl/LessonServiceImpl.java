@@ -20,11 +20,11 @@ public class LessonServiceImpl implements LessonService {
     LessonMapper lessonMapper;
 
     @Override
-    public IPage<VLesson> getLessons(QueryInfo info) {
+    public IPage<VLesson> getLessons(QueryInfo info,String term) {
         IPage<VLesson> iPage = new Page<>();
         iPage.setCurrent(info.getPageNumber());
         iPage.setSize(info.getPageSize());
-        IPage<VLesson> page = lessonMapper.getLessons(iPage, info.getQuery());
+        IPage<VLesson> page = lessonMapper.getLessons(iPage, info.getQuery(),term);
 
         page.getRecords().forEach(vLesson -> {
             vLesson.setLClasses(lessonMapper.getLearn(vLesson.getLId()));
@@ -32,5 +32,15 @@ public class LessonServiceImpl implements LessonService {
         });
 
         return page;
+    }
+
+    @Override
+    public IPage<VLesson> getLessonsByCId(QueryInfo info, String term) {
+        return null;
+    }
+
+    @Override
+    public IPage<VLesson> getLessonsByTId(QueryInfo info, String term) {
+        return null;
     }
 }

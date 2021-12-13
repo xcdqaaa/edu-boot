@@ -22,4 +22,9 @@ public class OptionListController {
     public RespBean getClasses(){
         return RespBean.success(null,optionListService.getClassCascader());
     }
+
+    @GetMapping("/option/terms")
+    public RespBean getTerms(){
+        return RespBean.success(null,optionListService.getPeriods());
+    }
 }

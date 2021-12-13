@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface LessonMapper extends BaseMapper<VLesson> {
 
-    IPage<VLesson> getLessons(IPage<VLesson> page, @Param("info") String info);
+    IPage<VLesson> getLessons(IPage<VLesson> page, @Param("info") String info,@Param("term") String term);
 
     IPage<VLesson> getLessonsByTId(IPage<VLesson> page, @Param("u_id") String tId);
 
@@ -21,6 +21,8 @@ public interface LessonMapper extends BaseMapper<VLesson> {
     IPage<VLesson> getReLessonsBySId(IPage<VLesson> page, @Param("u_id") String sId);
 
     IPage<VLesson> getSeLessonsBySId(IPage<VLesson> page, @Param("u_id") String sId);
+
+    IPage<VLesson> getLessonsByCId(IPage<VLesson> page, @Param("c_id") String cId);
 
     List<BClass> getLearn(@Param("l_id") String lId);
 

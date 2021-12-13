@@ -22,6 +22,10 @@
     <select id="getLessons" resultMap="LessonMap">
         SELECT *
         from v_lesson
+        where 1=1
+        <if test="term != '' and term != null">
+            and p_id =#{term}
+        </if>
     </select>
     <select id="getLearn" resultType="com.aaa.edu.pojo.beans.BClass">
         select *
@@ -62,6 +66,7 @@
           AND vln.c_id = vc.c_id
           AND vc.c_type = 2
           AND vc.u_id = #{u_id}
+
     </select>
     <select id="getSeLessonsBySId" resultType="com.aaa.edu.pojo.view.VLesson">
         SELECT vls.*
@@ -72,5 +77,14 @@
           AND vln.c_id = vc.c_id
           AND vc.c_type = 3
           AND vc.u_id = #{u_id}
+    </select>
+    <select id="getLessonsByCId" resultType="com.aaa.edu.pojo.view.VLesson">
+        SELECT vls.*
+        FROM v_lesson vls,
+             v_learn vln,
+             v_class vc
+        WHERE vls.l_id = vln.l_id
+          AND vln.c_id = vc.c_id
+          AND vc.c_id = #{c_id}
     </select>
 </mapper>
