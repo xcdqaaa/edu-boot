@@ -38,5 +38,4 @@ public interface UserService {
 
     Integer deleteUser(Integer id);
 
-
 }

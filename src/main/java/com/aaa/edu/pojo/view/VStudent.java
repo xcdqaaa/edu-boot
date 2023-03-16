@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName("v_student")
 public class VStudent {
-    //    @TableId(value = "s_id")
     private String sId;
     @TableId
     private Integer uId;

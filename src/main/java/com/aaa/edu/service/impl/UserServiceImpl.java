@@ -107,12 +107,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateUser(User user) {
         return userMapper.updateById(user);
-
     }
 
     @Override
     public Integer updateTeacher(VTeacher teacher) {
-//        System.out.println("teacher"+teacher.getUId());
         User user = new User();
         user.setUId(teacher.getUId());
         user.setAccount(teacher.getTId());

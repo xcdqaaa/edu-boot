@@ -24,7 +24,6 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.aaa.edu.controller"))
-                
                 .paths(PathSelectors.any())
                 .build();
     }
